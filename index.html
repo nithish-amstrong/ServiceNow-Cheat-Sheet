@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Nithish Amstrong">
+  <title>ServiceNow Development - Nithish Amstrong</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    details {
+      margin-bottom: 1em;
+    }
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <h1>ServiceNow Development Components Cheat Sheet</h1>
+
+  <details open>
+    <summary><h2>Data & Import</h2></summary>
+    <table>
+      <tr><th>Component</th><th>Purpose</th><th>When to Use</th></tr>
+      <tr><td>Table</td><td>Base container for records</td><td>Always first—define your data model.</td></tr>
+      <tr><td>Column / Field</td><td>Individual pieces of data</td><td>Store form values like “Priority” or “Department.”</td></tr>
+      <tr><td>Reference Field</td><td>Links records to another table</td><td>Look-ups (e.g., selecting a CI).</td></tr>
+      <tr><td>Choice List</td><td>Pre-defined dropdown values</td><td>Limit field to specific options (e.g., Incident states).</td></tr>
+      <tr><td>Dictionary Override</td><td>Customize inherited field behavior</td><td>When extending base tables.</td></tr>
+      <tr><td>Transform Map</td><td>Maps and transforms import data</td><td>For Excel/CSV/API imports into SNOW.</td></tr>
+      <tr><td>Data Source</td><td>Defines origin of imported data</td><td>Created per import channel.</td></tr>
+      <tr><td>Coalesce</td><td>Key column for deduplication</td><td>To update vs insert on import.</td></tr>
+      <tr><td>Import Set Table</td><td>Temporary staging table</td><td>ALWAYS use prior to transform.</td></tr>
+      <tr><td>Data Policy</td><td>Field behavior enforcement</td><td>Enforce consistency across API/scripted inputs.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary><h2>Server-side Processing</h2></summary>
+    <table>
+      <tr><th>Component</th><th>Purpose</th><th>When to Use</th></tr>
+      <tr><td>Business Rule</td><td>Triggers on DB ops</td><td>Validations, default fills, cross-table logic.</td></tr>
+      <tr><td>Scheduled Job</td><td>Recurring server-side scripts</td><td>Maintenance, summary emails.</td></tr>
+      <tr><td>Script Include</td><td>Reusable server-side functions</td><td>Wrap logic for reuse (also via GlideAjax).</td></tr>
+      <tr><td>GlideAjax</td><td>Expose server logic to client</td><td>When client needs server data.</td></tr>
+      <tr><td>Script Action</td><td>Triggered by events</td><td>Emails or post-event logic.</td></tr>
+      <tr><td>Event Registry</td><td>Define custom events</td><td>To publish/listen to app events.</td></tr>
+      <tr><td>Inbound Email Action</td><td>Handles incoming emails</td><td>Create/update tickets/tasks.</td></tr>
+      <tr><td>Email Script</td><td>Used in notifications</td><td>Dynamic content in emails.</td></tr>
+      <tr><td>Notification</td><td>Email/SMS/push alerts</td><td>Notify users (SLA, approvals).</td></tr>
+      <tr><td>Access Control (ACL)</td><td>Field/table-level security</td><td>Lock down access via roles.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary><h2>Client-side & UI</h2></summary>
+    <table>
+      <tr><th>Component</th><th>Purpose</th><th>When to Use</th></tr>
+      <tr><td>Client Script</td><td>Browser-side JS</td><td>Form logic, validation.</td></tr>
+      <tr><td>UI Policy</td><td>Declarative field logic</td><td>Show/hide/mandatory fields.</td></tr>
+      <tr><td>Catalog Client Script</td><td>Script for Catalog items</td><td>Modify catalog fields.</td></tr>
+      <tr><td>UI Action</td><td>Buttons/links/menus</td><td>Trigger form actions.</td></tr>
+      <tr><td>UI Macro</td><td>Reusable HTML components</td><td>Embed UI across pages.</td></tr>
+      <tr><td>UI Script</td><td>Shared client-side JS</td><td>Shared logic for forms/pages.</td></tr>
+      <tr><td>UI Page</td><td>Custom UI page</td><td>Modals, dashboards, forms.</td></tr>
+      <tr><td>Form Section</td><td>UI field grouping</td><td>Organize fields.</td></tr>
+      <tr><td>Form Layout</td><td>Drag-drop form designer</td><td>Customize by role/need.</td></tr>
+      <tr><td>Field Styles</td><td>Custom CSS</td><td>Highlight/stylize fields.</td></tr>
+      <tr><td>Theme/Subtheme</td><td>Branding style</td><td>Scoped-app specific branding.</td></tr>
+      <tr><td>Widget (Service Portal)</td><td>Reusable portal UI</td><td>Build with AngularJS.</td></tr>
+      <tr><td>Page (Portal)</td><td>Portal content container</td><td>Composite widget layout.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary><h2>Process Automation</h2></summary>
+    <table>
+      <tr><th>Component</th><th>Purpose</th><th>When to Use</th></tr>
+      <tr><td>Workflow</td><td>Legacy flow engine</td><td>Older cross-table processes.</td></tr>
+      <tr><td>Flow Designer</td><td>Modern no-code flow</td><td>New tasks, approvals, integrations.</td></tr>
+      <tr><td>Trigger (Flow)</td><td>Starts a flow</td><td>On record create/update/schedule.</td></tr>
+      <tr><td>Action (Flow)</td><td>Step in flows</td><td>Notifications, lookups, logic.</td></tr>
+      <tr><td>Subflow</td><td>Reusable flow segment</td><td>Shared logic across flows.</td></tr>
+      <tr><td>IntegrationHub</td><td>External integrations</td><td>Use Slack/Azure without coding.</td></tr>
+      <tr><td>Service Catalog</td><td>Orderable services/items</td><td>Build request items.</td></tr>
+      <tr><td>Catalog Item</td><td>Specific UI item</td><td>Single request element.</td></tr>
+      <tr><td>Order Guide</td><td>Bundle of items</td><td>For multi-item requests.</td></tr>
+      <tr><td>Item Variables</td><td>User input fields</td><td>Collect input across items.</td></tr>
+      <tr><td>Cart & Order</td><td>Ordering UI</td><td>End-user catalog interface.</td></tr>
+      <tr><td>Fulfillment Workflow</td><td>Automates tasks</td><td>Multi-step fulfillment process.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary><h2>Integration</h2></summary>
+    <table>
+      <tr><th>Component</th><th>Purpose</th><th>When to Use</th></tr>
+      <tr><td>REST/SOAP Message</td><td>Remote service config</td><td>Outbound integrations.</td></tr>
+      <tr><td>Inbound REST</td><td>Accepts external data</td><td>Other systems post records.</td></tr>
+      <tr><td>Scripted REST API</td><td>Custom REST logic</td><td>Custom data structures.</td></tr>
+      <tr><td>SOAP Message</td><td>Legacy SOAP interface</td><td>Old XML systems.</td></tr>
+      <tr><td>Web Service Vue/API</td><td>Integration orchestration</td><td>Internal SIMO management.</td></tr>
+      <tr><td>ECC Queue</td><td>Asynchronous call handler</td><td>Used with MID Servers.</td></tr>
+      <tr><td>MID Server</td><td>Connects on-prem resources</td><td>Discovery, orchestration.</td></tr>
+      <tr><td>Discovery Pattern</td><td>Tags/classifies CIs</td><td>Auto-scan infrastructure.</td></tr>
+      <tr><td>Service Mapping</td><td>Visual CI mapping</td><td>Service-dependency maps.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary><h2>Governance & Release</h2></summary>
+    <table>
+      <tr><th>Component</th><th>Purpose</th><th>When to Use</th></tr>
+      <tr><td>Update Set</td><td>Tracks config changes</td><td>Dev → Test → Prod promotion.</td></tr>
+      <tr><td>Application Repository</td><td>Git-based source control</td><td>Versioning for scoped apps.</td></tr>
+      <tr><td>Scoped App</td><td>Isolated app context</td><td>For multi-tenant use.</td></tr>
+      <tr><td>Application File</td><td>Individual artifact</td><td>Tables, scripts, etc. inside apps.</td></tr>
+      <tr><td>Automated Test Framework</td><td>Scripted test cases</td><td>For CI/CD automation.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary><h2>Performance & Monitoring</h2></summary>
+    <table>
+      <tr><th>Component</th><th>Purpose</th><th>When to Use</th></tr>
+      <tr><td>Performance Analytics</td><td>Scorecards/metrics</td><td>Trend monitoring.</td></tr>
+      <tr><td>Metric Definition</td><td>KPI field tracker</td><td>Measure duration metrics.</td></tr>
+      <tr><td>Dashboard</td><td>Visualize performance</td><td>Stakeholder views.</td></tr>
+      <tr><td>Benchmarking</td><td>Define metric targets</td><td>Compare against SLAs.</td></tr>
+      <tr><td>Event Management</td><td>Aggregates incidents</td><td>Alert monitoring.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary><h2>Security & Access</h2></summary>
+    <table>
+      <tr><th>Component</th><th>Purpose</th><th>When to Use</th></tr>
+      <tr><td>Access Control (ACL)</td><td>Restrict CRUD by role</td><td>Data-level security.</td></tr>
+      <tr><td>Role</td><td>User permission set</td><td>Define access rights.</td></tr>
+      <tr><td>Groups & Membership</td><td>Assign users to teams</td><td>Team-based access.</td></tr>
+      <tr><td>User Criteria</td><td>Portal item visibility</td><td>Show/hide based on group.</td></tr>
+      <tr><td>Scoped App ACLs</td><td>Control within scoped apps</td><td>Scoped access protection.</td></tr>
+      <tr><td>Encryption Support</td><td>Protect data</td><td>Sensitive field/table security.</td></tr>
+      <tr><td>OAuth Provider/Config</td><td>Token-based auth</td><td>OAuth integrations.</td></tr>
+      <tr><td>Password Reset Flows</td><td>Password management</td><td>User self-service resets.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary><h2>General Best Practices</h2></summary>
+    <ul>
+      <li><strong>Client vs Server:</strong> Use Client Scripts/UI Policies for form behavior; Business Rules/Script Includes for backend logic.</li>
+      <li><strong>Declarative vs Scripted:</strong> Start with no-code (e.g., Flow Designer), script if needed.</li>
+      <li><strong>New vs Legacy:</strong> Prefer Flow Designer/IntegrationHub over Workflow/SOAP where possible.</li>
+      <li><strong>Scoped vs Global:</strong> Use Scoped Apps to isolate changes and avoid conflicts.</li>
+      <li><strong>Security First:</strong> Define ACLs, roles, and groups early in design.</li>
+    </ul>
+  </details>
+</body>
+
+<footer style="margin-top: 2em; font-size: 0.9em; color: gray;">
+  Created by <strong>Nithish Amstrong</strong> — All rights reserved.
+</footer>
+
+</html>
